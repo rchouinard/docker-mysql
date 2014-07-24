@@ -12,7 +12,7 @@ Building is straight forward:
 
     git clone git@github.com:rchouinard/docker-mysql.git
     cd docker-mysql
-    docker build -t rych/mysql .
+    docker build -t rchouinard/mysql .
 
 Running
 -------
@@ -24,7 +24,7 @@ Also fairly straight forward, but there are a few caveats:
         -v $HOME/mysql56:/var/lib/mysql \
         -p 13306:3306 \
         -e "MYSQL_ROOT_PASSWORD=mysecretpassword" \
-        rych/mysql:latest
+        rchouinard/mysql:latest
 
 This command will create a new container based on the new MySQL image built
 previously.
@@ -37,7 +37,7 @@ across runs.
 This lets us connect to the instance as shown below.
  - `-e "MYSQL_ROOT_PASSWORD=mysecretpassword"` sets the root password for the
 instance. This really only needs to be specified on the first run.
- - `rych/mysql:latest` uses the latest rych/mysql image for the container.
+ - `rchouinard/mysql:latest` uses the latest rchouinard/mysql image for the container.
 
 Be sure to adjust any of the parameters to meet your requirements.
 
