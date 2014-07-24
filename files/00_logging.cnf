@@ -1,0 +1,6 @@
+[mysqld]
+console=1
+log-output=FILE
+log-error=/dev/stderr
+general-log=1
+general-log-file=/dev/stdout

@@ -23,6 +23,7 @@ RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysq
 #
 # Add custom configuration
 ADD files/00_charset.cnf /etc/mysql/conf.d/00_charset.cnf
+ADD files/00_logging.cnf /etc/mysql/conf.d/00_logging.cnf
 
 #
 # Remove default data
@@ -47,4 +48,4 @@ EXPOSE 3306
 # Execute the default command
 #
 # This is passed through to the entrypoint for execution
-CMD ["mysqld_safe", "--skip-syslog", "--user=mysql"]
+CMD ["mysqld", "--user=mysql"]

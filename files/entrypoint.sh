@@ -31,7 +31,7 @@ then
 	mysql_install_db --user=mysql --datadir="$MYSQL_LIB"
 	chown -R mysql:mysql "$MYSQL_LIB"
 
-	su - mysql -s /bin/bash -c "mysqld_safe --skip-syslog > /dev/null &"
+	mysqld --user=mysql > /dev/null &
 
 	RET=1
 	while [[ $RET -ne 0 ]];
