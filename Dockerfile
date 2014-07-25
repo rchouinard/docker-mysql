@@ -3,13 +3,8 @@ MAINTAINER Ryan Chouinard <rchouinard@gmail.com>
 
 #
 # Add the official MySQL repository
-#
-# Since the GPG key isn't published anywhere, we have to ADD it to the
-# container and import it from there. The key was extracted using
-# `apt-key export 5072E1F5 > mysql-release-engineering.asc`. 
-ADD files/mysql-release-engineering.asc /tmp/mysql-release-engineering.asc
+RUN apt-key adv --keyserver pgp.mit.edu --recv-keys 8C718D3B5072E1F5
 RUN echo "deb http://repo.mysql.com/apt/ubuntu/ trusty mysql-5.6" > /etc/apt/sources.list.d/mysql-community.list
-RUN cat /tmp/mysql-release-engineering.asc | apt-key add -
 RUN DEBIAN_FRONTEND=noninteractive apt-get update
 
 #
