@@ -13,9 +13,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install mysql-community-server
 
 #
 # Add custom configuration
-ADD files/00_charset.cnf /etc/mysql/conf.d/00_charset.cnf
-ADD files/00_logging.cnf /etc/mysql/conf.d/00_logging.cnf
-ADD files/00_network.cnf /etc/mysql/conf.d/00_network.cnf
+ADD files/conf.d/ /etc/mysql/conf.d/
 
 #
 # Remove default data
@@ -28,16 +26,16 @@ RUN rm -rf /var/lib/mysql/*
 VOLUME /var/lib/mysql
 
 #
+# Export port 3306
+EXPOSE 3306
+
+#
 # Set custom entrypoint
 ADD files/entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
 #
-# Export port 3306
-EXPOSE 3306
-
-#
-# Execute the default command
+# Set the default command
 #
 # This is passed through to the entrypoint for execution
 CMD ["mysqld", "--user=mysql"]
