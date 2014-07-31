@@ -28,7 +28,7 @@ then
 		exit 1
 	fi
 
-	mysql_install_db --user=mysql --datadir="$MYSQL_LIB"
+	mysql_install_db --user=mysql --datadir="$MYSQL_LIB" --skip-random-passwords
 	chown -R mysql:mysql "$MYSQL_LIB"
 
 	mysqld --user=mysql > /dev/null &

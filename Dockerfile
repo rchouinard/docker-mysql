@@ -4,7 +4,7 @@ MAINTAINER Ryan Chouinard <rchouinard@gmail.com>
 #
 # Add the official MySQL repository
 RUN apt-key adv --keyserver pgp.mit.edu --recv-keys 8C718D3B5072E1F5
-RUN echo "deb http://repo.mysql.com/apt/ubuntu/ trusty mysql-5.6" > /etc/apt/sources.list.d/mysql-community.list
+RUN echo "deb http://repo.mysql.com/apt/ubuntu/ trusty mysql-5.7-dmr" > /etc/apt/sources.list.d/mysql-community.list
 RUN DEBIAN_FRONTEND=noninteractive apt-get update
 
 #
