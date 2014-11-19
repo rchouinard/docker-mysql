@@ -11,7 +11,7 @@ MYSQL_BASEDIR="/usr"
 
 # Create a directory owned by mysql
 createDir() {
-	mkdir -p "$1"
+	mkdir --parents "$1"
 	chown mysql:mysql "$1"
 	chmod $2 "$1"
 }

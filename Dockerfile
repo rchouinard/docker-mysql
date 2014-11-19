@@ -2,36 +2,26 @@ FROM ubuntu:trusty
 MAINTAINER Ryan Chouinard <rchouinard@gmail.com>
 
 #
-# Add the official MySQL repository
-RUN apt-key adv --keyserver pgp.mit.edu --recv-keys 8C718D3B5072E1F5
-RUN echo "deb http://repo.mysql.com/apt/ubuntu/ trusty mysql-5.6" > /etc/apt/sources.list.d/mysql-community.list
-RUN DEBIAN_FRONTEND=noninteractive apt-get update
+# Install MySQL Community Server from the official APT repo
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8C718D3B5072E1F5 \
+    && echo "deb http://repo.mysql.com/apt/ubuntu/ trusty mysql-5.6" > /etc/apt/sources.list.d/mysql-community.list \
+    && DEBIAN_FRONTEND=noninteractive apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get --yes install mysql-community-server=5.6.21-1ubuntu14.04 \
+    && DEBIAN_FRONTEND=noninteractive apt-get clean \
+    && rm --recursive --force /var/lib/mysql/*
 
 #
-# Install MySQL Community Server
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install mysql-community-server
-
-#
-# Add custom configuration
+# Add custom files
 ADD files/conf.d/ /etc/mysql/conf.d/
+ADD files/entrypoint.sh /entrypoint.sh
 
 #
-# Remove default data
-#
-# The entrypoint will recreate as needed.
-RUN rm -rf /var/lib/mysql/*
-
-#
-# Export data directory
+# Export container resources
 VOLUME /var/lib/mysql
-
-#
-# Export port 3306
 EXPOSE 3306
 
 #
 # Set custom entrypoint
-ADD files/entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
 #
