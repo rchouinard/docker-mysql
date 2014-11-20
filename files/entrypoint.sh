@@ -46,7 +46,7 @@ then
 	fi
 
 	# Initialize the data directory and start the mysql daemon
-	mysql_install_db --user="mysql" --datadir="$MYSQL_LIB" --basedir="$MYSQL_BASEDIR" --random-passwords
+	mysql_install_db --user="mysql" --datadir="$MYSQL_LIB" --basedir="$MYSQL_BASEDIR"
 	mysqld --user="mysql" --disconnect_on_expired_password="OFF" > /dev/null &
 
 	# Wait for the mysql daemon to start up and change the root password
@@ -65,7 +65,7 @@ then
 	fi
 
 	# Reset root password
-	mysqladmin --user="root" --password="$(cat /root/.mysql_secret | rev | cut -d' ' -f1 | rev)" password "$MYSQL_ROOT_PASSWORD" > /dev/null 2>&1
+	mysqladmin --user="root" --password="$(tail -n1 /root/.mysql_secret)" password "$MYSQL_ROOT_PASSWORD" > /dev/null 2>&1
 
 	# Create host-less root user
 	executeQuery "CREATE USER 'root'@'%' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';"
